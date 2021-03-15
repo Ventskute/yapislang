@@ -1,0 +1,25 @@
+{
+  "name": "yapislang",
+  "version": "1.0.0",
+  "description": "YAPIS own language",
+  "main": "./index.js",
+  "scripts": {
+    "build": "java -cp \"antlr-4.9.1-complete.jar\" org.antlr.v4.Tool -Dlanguage=JavaScript -o ./build *.g && webpack",
+    "start": "node ./build/bundle.js",
+    "restart": "npm run build && npm start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.12.7",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.8.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "antlr4": "^4.9.1"
+  }
+}
