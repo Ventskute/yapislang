@@ -5,7 +5,7 @@ import GrammarParser from './build/YapislangParser';
 
 class Main {
   static parse() {
-    const input = String(readFileSync('./examples/ex1.yap'));
+    const input = String(readFileSync('./examples/ex3.yap'));
     const chars = new antlr4.InputStream(input);
 
     const lexer = new GrammarLexer(chars);

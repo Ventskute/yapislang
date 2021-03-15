@@ -11,8 +11,8 @@ OpenBracket:                    '[';
 CloseBracket:                   ']';
 OpenParen:                      '(';
 CloseParen:                     ')';
-OpenBrace:                      '{' {this.ProcessOpenBrace();};
-CloseBrace:                     '}' {this.ProcessCloseBrace();};
+OpenBrace:                      '{';
+CloseBrace:                     '}';
 SemiColon:                      ';';
 Comma:                          ',';
 Assign:                         '=';
@@ -76,7 +76,7 @@ Identifier:                     IdentifierStart IdentifierPart*;
 
 /// String Literals
 StringLiteral:                 ('"' DoubleStringCharacter* '"'
-             |                  '\'' SingleStringCharacter* '\'') {this.ProcessStringLiteral();}
+             |                  '\'' SingleStringCharacter* '\'')
              ;
 
 WhiteSpaces:                    [\t\u000B\u000C\u0020\u00A0]+ -> channel(HIDDEN);
