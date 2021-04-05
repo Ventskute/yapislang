@@ -64,6 +64,10 @@ export default class YapislangLexerBase extends antlr4.Parser {
         }
         const text = ahead.text;
         const type = ahead.type;
-        return (type === YapislangParser.LineTerminator);
+        return (
+                (type === YapislangParser.MultiLineComment &&
+                 (text.includes("\r") || text.includes("\n"))) ||
+                type === YapislangParser.LineTerminator
+               );
     }
 }

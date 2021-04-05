@@ -11,8 +11,8 @@ OpenBracket:                    '[';
 CloseBracket:                   ']';
 OpenParen:                      '(';
 CloseParen:                     ')';
-OpenBrace:                      '{';
-CloseBrace:                     '}';
+OpenBrace:                      '{' {this.ProcessOpenBrace();};
+CloseBrace:                     '}' {this.ProcessCloseBrace();};
 SemiColon:                      ';';
 Comma:                          ',';
 Assign:                         '=';
@@ -39,8 +39,7 @@ DivideAssign:                   '/=';
 ModulusAssign:                  '%=';
 PlusAssign:                     '+=';
 MinusAssign:                    '-=';
-ARROW:                          '=>';
-
+Arrow:                          '=>';
 /// Boolean Literals
 
 BooleanLiteral:                 'true'
@@ -76,7 +75,7 @@ Identifier:                     IdentifierStart IdentifierPart*;
 
 /// String Literals
 StringLiteral:                 ('"' DoubleStringCharacter* '"'
-             |                  '\'' SingleStringCharacter* '\'')
+             |                  '\'' SingleStringCharacter* '\'') {this.ProcessStringLiteral();}
              ;
 
 WhiteSpaces:                    [\t\u000B\u000C\u0020\u00A0]+ -> channel(HIDDEN);

@@ -47,11 +47,11 @@ variableStatement
     ;
 
 variableDeclarationList
-    : varModifier variableDeclaration (',' variableDeclaration)*
+    : varModifier variableDeclaration
     ;
 
 variableDeclaration
-    : assignable ('=' singleExpression)?
+    : assignable ( '=' singleExpression)?
     ;
 
 emptyStatement
@@ -59,7 +59,7 @@ emptyStatement
     ;
 
 expressionStatement
-    : {this.notOpenBraceAndNotFunction()}? expressionSequence eos
+    : {this.notOpenBraceAndNotFunction()}? expressionSequence
     ;
 
 ifStatement
@@ -89,7 +89,7 @@ labelledStatement
 
 
 functionDeclaration
-    : varModifier Function identifier '(' formalParameterList? ')' '{' functionBody '}'
+    : varModifier Function identifier '(' formalParameterList? ')' functionBody
     ;
 
 formalParameterList
@@ -101,7 +101,7 @@ formalParameterArg
     ;
 
 functionBody
-    : sourceElements?
+    : '{' sourceElements? '}'
     ;
 
 arrayLiteral
@@ -181,8 +181,8 @@ objectLiteral
 
 anonymousFunction
     : functionDeclaration                                                       # FunctionDecl
-    | Function '(' formalParameterList? ')' '{' functionBody '}'                # anonymousFunctionDecl
-    | arrowFunctionParameters '=>' arrowFunctionBody                            # ArrowFunction
+    | varModifier Function '(' formalParameterList? ')' functionBody                # anonymousFunctionDecl
+    |  varModifier arrowFunctionParameters '=>' arrowFunctionBody                            # ArrowFunction
     ;
 
 arrowFunctionParameters
@@ -192,7 +192,7 @@ arrowFunctionParameters
 
 arrowFunctionBody
     : singleExpression
-    | '{' functionBody '}'
+    | functionBody
     ;
 
 assignmentOperator
@@ -234,7 +234,6 @@ keyword
     | Function
     | If
     | In
-    | varModifier
     ;
 
 eos
