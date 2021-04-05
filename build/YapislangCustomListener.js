@@ -2,7 +2,6 @@ import YapislangParserListener from './YapislangParserListener';
 
 export default class YapislangCustomListener extends YapislangParserListener {
   OUTER_SCOPE = []
-  
   VARS = {
     'string[]': new Map(),
     'string': new Map(),
@@ -10,15 +9,14 @@ export default class YapislangCustomListener extends YapislangParserListener {
     'int': new Map(),
     'bool': new Map(),
   }
-
   FUNCTIONS = new Map()
 
-  exitFunctionDeclaration(ctx) {
-    // console.log(ctx.varModifier().getText(), ctx.identifier().getText())
+  enterFunctionDeclaration(ctx) {
+    console.log('declaring function', ctx.identifier().getText());
   }
 
   enterFunctionBody(ctx) {
-    const newVars ={};
+    const newVars = {};
     Object.keys(this.VARS).forEach((type) => {
       newVars[type] = new Map(this.VARS[type])
     })
@@ -36,11 +34,10 @@ export default class YapislangCustomListener extends YapislangParserListener {
     const type = ctx.varModifier().getText()
     const name = ctx.variableDeclaration().assignable().getText()
     const value = (ctx.variableDeclaration().singleExpression() && ctx.variableDeclaration().singleExpression().getText()) || undefined;
-    
-    console.log(type, name, value)
 
     if (this.VARS[type]) {
       if (!Object.values(this.VARS).some(map => map.has(name))) {
+        console.log('declaring var', name, 'of type', type, 'equal', value)
         this.VARS[type].set(name, value)
       } else {
         console.error(`Error: Identifier ${name} has already been declared`)
