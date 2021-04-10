@@ -1,12 +1,16 @@
-string[] LABELS = ["_MAIN", "_GALLERY", "_SETTINGS", "_AUTHORS", "EXTRA"];
-
 char func getFirstChar(string textValue) {               // example of type coercion (typecasting)
-  char part = (char)textValue.substr(0, 1)
+  string sbstr = textValue.substr(0, 1)
+  char part = (char)sbstr
   return part
 }
 
 string func capitalize(string label) {                     // example of capitalizing ('SOME' -> 'Some' or 'some' -> 'Some')
-  string newLabel = label.substr(0, 1).toUpperCase() + label.substr(1).toLowerCase()
+  string newLabel = label.substr(0, 1)
+  newLabel = newLabel.toUpperCase() 
+  string lowText = label.substr(1)
+  lowText = lowText.toLowerCase()
+
+  newLabel = newLabel + loweText
   return newLabel
 }
 
@@ -22,5 +26,7 @@ string func getMenuItems(string[] labels) {                // example of conditi
   return menuLabels
 }
 
+string[] LABELS = ["_MAIN", "_GALLERY", "_SETTINGS", "_AUTHORS", "EXTRA"];
+
 string[] menuLabels = getMenuItems(LABELS)
-// ['Main', 'Gallery', 'Settings', 'Authors']
+// ['Main', 'Gallery', 'Settings', 'Authors'] 

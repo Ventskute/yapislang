@@ -67,8 +67,7 @@ ifStatement
     ;
 
 iterationStatement
-    : For '(' (expressionSequence | variableDeclarationList)? ';' expressionSequence? ';' expressionSequence? ')' statement
-    | For '(' (singleExpression | variableDeclarationList) In expressionSequence ')' statement
+    : For '(' variableDeclarationList In singleExpression ')' statement
     ;
 
 varModifier
@@ -143,7 +142,8 @@ singleExpression
     : anonymousFunction                                                     # AnonymousFunctionExpression
     | '(' varModifier ')' singleExpression                                  # TypeAssertionExpression
     | singleExpression '[' expressionSequence ']'                           # MemberIndexExpression
-    | singleExpression '?'? '.' identifierName                         # MemberDotExpression
+    | singleExpression '?'? '.' identifierName                              # MemberDotExpression
+    | singleExpression '.' identifierName '(' formalParameterList? ')'      # MemberDotFunctionCall
     | singleExpression arguments                                            # ArgumentsExpression
     | singleExpression {this.notLineTerminator()}? '++'                     # PostIncrementExpression
     | singleExpression {this.notLineTerminator()}? '--'                     # PostDecreaseExpression
@@ -153,10 +153,10 @@ singleExpression
     | '-' singleExpression                                                  # UnaryMinusExpression
     | '!' singleExpression                                                  # NotExpression
     | singleExpression In singleExpression                                  # InExpression
-    | singleExpression ('*' | '/') singleExpression                   # MultiplicativeExpression
+    | singleExpression ('*' | '/') singleExpression                         # MultiplicativeExpression
     | singleExpression ('+' | '-') singleExpression                         # AdditiveExpression
     | singleExpression ('<' | '>' | '<=' | '>=') singleExpression           # RelationalExpression
-    | singleExpression ('==' | '!=' ) singleExpression       # EqualityExpression
+    | singleExpression ('==' | '!=' ) singleExpression                      # EqualityExpression
     | singleExpression '&&' singleExpression                                # LogicalAndExpression
     | singleExpression '||' singleExpression                                # LogicalOrExpression
     | singleExpression '?' singleExpression ':' singleExpression            # TernaryExpression
@@ -171,8 +171,6 @@ singleExpression
 
 assignable
     : identifier
-    | arrayLiteral
-    | objectLiteral
     ;
 
 objectLiteral

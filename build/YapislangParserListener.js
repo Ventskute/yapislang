@@ -356,6 +356,15 @@ export default class YapislangParserListener extends antlr4.tree.ParseTreeListen
 	}
 
 
+	// Enter a parse tree produced by YapislangParser#MemberDotFunctionCall.
+	enterMemberDotFunctionCall(ctx) {
+	}
+
+	// Exit a parse tree produced by YapislangParser#MemberDotFunctionCall.
+	exitMemberDotFunctionCall(ctx) {
+	}
+
+
 	// Enter a parse tree produced by YapislangParser#UnaryMinusExpression.
 	enterUnaryMinusExpression(ctx) {
 	}

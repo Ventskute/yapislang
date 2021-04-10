@@ -4,9 +4,10 @@
   "description": "YAPIS own language",
   "main": "./index.js",
   "scripts": {
-    "build": "java -cp \"antlr-4.9.1-complete.jar\" org.antlr.v4.Tool -Dlanguage=JavaScript -o ./build *.g && webpack",
-    "start": "node ./build/bundle.js",
-    "restart": "npm run build && npm start"
+    "build": "java -cp \"antlr-4.9.1-complete.jar\" org.antlr.v4.Tool -Dlanguage=JavaScript -visitor -o ./build *.g && webpack",
+    "start": "webpack-dev-server --open",
+    "start:node": "webpack-dev-server --open",
+    "restart": "npm run build && npm start:node"
   },
   "keywords": [],
   "author": "",
@@ -16,8 +17,11 @@
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/preset-env": "^7.12.7",
     "babel-loader": "^8.2.2",
-    "webpack": "^5.8.0",
-    "webpack-cli": "^3.3.12"
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^4.5.0",
+    "webpack": "4.44.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
     "antlr4": "^4.9.1"

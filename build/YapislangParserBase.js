@@ -35,7 +35,12 @@ export default class YapislangLexerBase extends antlr4.Parser {
         const nextTokenType = this._input.LT(1).type;
         return (
                 nextTokenType !== YapislangParser.OpenBrace &&
-                nextTokenType !== YapislangParser.Function
+                nextTokenType !== YapislangParser.Function &&
+                nextTokenType !== YapislangParser.Char &&
+                nextTokenType !== YapislangParser.String &&
+                nextTokenType !== YapislangParser.StringList &&
+                nextTokenType !== YapislangParser.Bool &&
+                nextTokenType !== YapislangParser.Int
                );
     }
 
