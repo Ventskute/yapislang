@@ -41,10 +41,9 @@ class Compiler {
     }
 
     callPrintf(string) {
-        const v = this.builder.createLocalStringPtr(string + "\n")
         this.builder.createCall(
             this.DEFAULT_FUNCTIONS.print.functionType,
-            this.DEFAULT_FUNCTIONS.print.callee, [v], 'printf');
+            this.DEFAULT_FUNCTIONS.print.callee, [string], 'printf');
     }
 
     print() {
@@ -70,7 +69,7 @@ class Compiler {
         this.builder.setInsertionPoint(bb);
     }
 
-    createFunction(type, name, params) {
+    createFunction(type, name) {
         const func = llvm.Function.create(this.FUNCTION_TYPES[type], llvm.LinkageTypes.ExternalLinkage, name, this.module)
 
         const bb = new llvm.BasicBlock.create(this.context, name, func);
@@ -81,13 +80,9 @@ class Compiler {
     }
 
     closeFunction(func) {
-        // llvm.verifyFunction(func);
+        llvm.verifyFunction(func);
 
         this.activeBlock = this.mainBlock;
-    }
-
-    getType(type, value) {
-        return this.TYPES[type]
     }
 
     getValue(type, value) {
@@ -96,10 +91,9 @@ class Compiler {
         } else if (type === "int") {
             return llvm.ConstantInt.get(this.context, value, 32)
         } else if (type === "string") {
-            console.log(value)
-            return this.builder.createGlobalStringPtr(value)
+            return this.builder.createGlobalStringPtr(value.toString())
         } else if (type === "bool") {
-            return (value ? llvm.ConstantInt.getTrue() : llvm.ConstantInt.getFalse())
+            return (!!value ? llvm.ConstantInt.getTrue() : llvm.ConstantInt.getFalse())
         } else if (type === "string[]") {
             return value.map(el => el.split("").map(char => {
                 return llvm.ConstantInt.get(this.context, char.charCodeAt(0), 8)

@@ -1,3 +1,5 @@
+import compiler from "../../build/compiler";
+
 export default class Parameter {
     constructor(type, name, value) {
         this.type = type;
@@ -5,8 +7,8 @@ export default class Parameter {
         this.value = value;
     }
 
-    toString() {
-        if (this.value) return this.value.toString();
+    toIR() {
+        if (this.value) return compiler.getValue(this.type, this.value);
         else return '';
     }
 }

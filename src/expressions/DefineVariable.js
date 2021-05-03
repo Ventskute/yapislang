@@ -7,11 +7,15 @@ export default class DefineVariable {
   }
 
   toIR() {
-    this.llType = Compiler.getType(this.type, this.nameAndValue.value);
+    this.llType = Compiler.TYPES[this.type];
     this.llPtr = Compiler.builder.createAlloca(this.llType)
-    this.value = Compiler.getValue(this.type, this.nameAndValue.value)
+    this.value = Compiler.getValue(this.type, this.nameAndValue.value.toString())
     this.store = Compiler.builder.createStore(this.value, this.llPtr)
 
     return this;
+  }
+
+  toString() {
+    return this.nameAndValue.value.toString()
   }
 }

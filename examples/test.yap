@@ -6,7 +6,8 @@ string func abc() {
 
 int a = 2
 string b = "test string"
+string c = a + b
 abc()
 
-print(b)
-//print(c)
+print(c + "POPUNUHA_")
+print(c)

@@ -10,6 +10,7 @@ import YapislangParserVisitor from './YapislangParserVisitor';
 import ReturnStatement from '../src/statements/ReturnStatement';
 import Compiler from './compiler';
 import llvm from 'llvm-node';
+import Math from '../src/expressions/Math';
 
 export default class Visitor extends YapislangParserVisitor {
   OUTER_SCOPE = []
@@ -69,6 +70,14 @@ export default class Visitor extends YapislangParserVisitor {
     });
 
     return se;
+  }
+
+  visitAdditiveExpression(ctx) {
+    const [L, R] = ctx.singleExpression() && ctx.singleExpression().map(exp => exp.accept(this))
+
+    const operation = (ctx.Plus() || ctx.Minus()).getText()
+
+    return new Math(operation, L, R)
   }
 
   visitTypeAssertionExpression(ctx) {
@@ -150,8 +159,8 @@ export default class Visitor extends YapislangParserVisitor {
     let returnValue = statement.nameAndValue.value;
 
     let value
-    if (this.VARS[statement.type].get(statement.nameAndValue.name)) {
-      const dv = this.VARS[statement.type].get(statement.nameAndValue.name);
+    const dv = this.VARS[statement.type].get(statement.nameAndValue.name);
+    if (dv) {
       value = dv.value
     } else {
       value = Compiler.getValue(statement.type, returnValue);
@@ -241,7 +250,7 @@ export default class Visitor extends YapislangParserVisitor {
 
   visitFunctionCall(ctx) {
     const name = ctx.identifier().getText()
-    const params = ctx.formalParameterList() && ctx.formalParameterList().accept(this)
+    let params = ctx.formalParameterList() && ctx.formalParameterList().accept(this)
     let type = null;
     let func = null;
 
@@ -264,7 +273,12 @@ export default class Visitor extends YapislangParserVisitor {
         callee.functionType, callee.callee, [], name);
     } else if (!!Compiler.DEFAULT_FUNCTIONS[name]) {
       const callee = Compiler.DEFAULT_FUNCTIONS_LOGIC[name]
-      callee(...params.map(p => p.toString()))
+      if (!params) params = ctx.singleExpression() && ctx.singleExpression().map(exp => exp.accept(this))
+      if (!params) params = []
+
+      callee(...params.map(p => {
+        return p.toIR()
+      }))
     } else {
       throw new ReferenceError(`Function ${name} is not defined`)
     }

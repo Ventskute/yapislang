@@ -87,6 +87,7 @@ functionDeclaration
 
 functionCall
     : identifier '(' formalParameterList? ')'
+    | identifier '(' singleExpression? (',' singleExpression)* ')'
     ;
 
 formalParameterList
