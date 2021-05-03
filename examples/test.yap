@@ -4,10 +4,16 @@ string func abc() {
     return res
 }
 
-int a = 2
-string b = "test string"
-string c = a + b
-abc()
+int one = 1
+char two = "2"
 
-print(c + "POPUNUHA_")
-print(c)
+string a = " + string = WORKS!"
+print(one + a)
+
+string b = two + a
+print(b)
+
+abc()   // call some function
+
+string c = one + two
+print(c + " another cool string made from char, int and string!!!")

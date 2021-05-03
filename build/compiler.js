@@ -38,12 +38,14 @@ class Compiler {
 
         this.mainBlock = new llvm.BasicBlock.create(this.context, 'main', this.mainFunc);
         this.activeBlock = this.mainBlock;
+
+        this.printfFormat = this.builder.createGlobalStringPtr('%s\n')
     }
 
     callPrintf(string) {
         this.builder.createCall(
             this.DEFAULT_FUNCTIONS.print.functionType,
-            this.DEFAULT_FUNCTIONS.print.callee, [string], 'printf');
+            this.DEFAULT_FUNCTIONS.print.callee, [this.printfFormat, string], 'printf');
     }
 
     print() {
