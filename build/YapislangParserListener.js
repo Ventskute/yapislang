@@ -41,15 +41,6 @@ export default class YapislangParserListener extends antlr4.tree.ParseTreeListen
 	}
 
 
-	// Enter a parse tree produced by YapislangParser#block.
-	enterBlock(ctx) {
-	}
-
-	// Exit a parse tree produced by YapislangParser#block.
-	exitBlock(ctx) {
-	}
-
-
 	// Enter a parse tree produced by YapislangParser#statementList.
 	enterStatementList(ctx) {
 	}
@@ -164,6 +155,15 @@ export default class YapislangParserListener extends antlr4.tree.ParseTreeListen
 
 	// Exit a parse tree produced by YapislangParser#functionDeclaration.
 	exitFunctionDeclaration(ctx) {
+	}
+
+
+	// Enter a parse tree produced by YapislangParser#functionCall.
+	enterFunctionCall(ctx) {
+	}
+
+	// Exit a parse tree produced by YapislangParser#functionCall.
+	exitFunctionCall(ctx) {
 	}
 
 
@@ -362,6 +362,15 @@ export default class YapislangParserListener extends antlr4.tree.ParseTreeListen
 
 	// Exit a parse tree produced by YapislangParser#MemberDotFunctionCall.
 	exitMemberDotFunctionCall(ctx) {
+	}
+
+
+	// Enter a parse tree produced by YapislangParser#FunctionExpression.
+	enterFunctionExpression(ctx) {
+	}
+
+	// Exit a parse tree produced by YapislangParser#FunctionExpression.
+	exitFunctionExpression(ctx) {
 	}
 
 

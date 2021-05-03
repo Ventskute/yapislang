@@ -4,9 +4,9 @@
   "description": "YAPIS own language",
   "main": "./index.js",
   "scripts": {
-    "build": "java -cp \"antlr-4.9.1-complete.jar\" org.antlr.v4.Tool -Dlanguage=JavaScript -visitor -o ./build *.g && webpack",
-    "start": "webpack-dev-server --open",
-    "start:node": "webpack-dev-server --open",
+    "build": "java -cp \"antlr-4.9.1-complete.jar\" org.antlr.v4.Tool -Dlanguage=JavaScript -visitor -o ./build *.g",
+    "start": "npx babel-node --presets @babel/preset-env ./index.js",
+    "debug": "npx babel-node --inspect --presets @babel/preset-env ./index.js",
     "restart": "npm run build && npm start:node"
   },
   "keywords": [],
@@ -24,6 +24,13 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "antlr4": "^4.9.1"
+    "@babel/cli": "^7.13.16",
+    "@babel/node": "^7.13.13",
+    "antlr4": "^4.9.1",
+    "browserify-fs": "^1.0.0",
+    "express": "^4.17.1",
+    "llvm-node": "^3.0.0",
+    "node-dev": "^6.7.0",
+    "node-fetch": "^2.6.1"
   }
 }

@@ -6,7 +6,7 @@ char func getFirstChar(string textValue) {               // example of type coer
 
 string func capitalize(string label) {                     // example of capitalizing ('SOME' -> 'Some' or 'some' -> 'Some')
   string newLabel = label.substr(0, 1)
-  newLabel = newLabel.toUpperCase() 
+  newLabel = newLabel.toUpperCase()
   string lowText = label.substr(1)
   lowText = lowText.toLowerCase()
 
@@ -29,4 +29,4 @@ string func getMenuItems(string[] labels) {                // example of conditi
 string[] LABELS = ["_MAIN", "_GALLERY", "_SETTINGS", "_AUTHORS", "EXTRA"];
 
 string[] menuLabels = getMenuItems(LABELS)
-// ['Main', 'Gallery', 'Settings', 'Authors'] 
+// ['Main', 'Gallery', 'Settings', 'Authors']

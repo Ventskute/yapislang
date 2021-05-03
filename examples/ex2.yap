@@ -16,7 +16,7 @@ string func cipher(string textToCipher) {
   string result = ""
   string[] arr = textToCipher.toUpperCase().toArray()      // ["T", "H", "I", "S", " ", "T", "E"...]
 
-  for (symbol in arr) {
+  for (string symbol in arr) {
     int index = alphabet.find(symbol)                      // T -> N, H -> S...
     result = result + shuffledAlphabet[index]
   }
@@ -28,7 +28,7 @@ string func decipher() {
   string result = ""
   string[] arr = textToCipher.toUpperCase().toArray()      // ["N", "S", "D", "M", "Q", "N", "V"...]
 
-  for (symbol in arr) {
+  for (string symbol in arr) {
     int index = shuffledAlphabet.find(symbol)              // N -> T, S -> H...
     result = result + alphabet[index]
   }
@@ -36,8 +36,6 @@ string func decipher() {
   return result
 }
 
-string ciphered = cipher(text)
-print(ciphered)    // "NSDMQNVYNQ%D44Q0VQ9DFSVBVK"
+string ciphered = cipher(text) // "NSDMQNVYNQ%D44Q0VQ9DFSVBVK"
 
-string original = decipher(ciphered)
-print(original)    // "THIS TEXT WILL BE CIPHERED"
+string original = decipher(ciphered) // "THIS TEXT WILL BE CIPHERED"

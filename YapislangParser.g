@@ -18,8 +18,7 @@ sourceElement
     ;
 
 statement
-    : block
-    | variableStatement
+    : variableStatement
     | emptyStatement
     | expressionStatement
     | ifStatement
@@ -27,10 +26,6 @@ statement
     | returnStatement
     | labelledStatement
     | functionDeclaration
-    ;
-
-block
-    : '{' statementList? '}'
     ;
 
 statementList
@@ -63,11 +58,11 @@ expressionStatement
     ;
 
 ifStatement
-    : If '(' expressionSequence ')' statement (Else statement)?
+    : If '(' expressionSequence ')' '{' statement+ '}' (Else '{' statementList '}')?
     ;
 
 iterationStatement
-    : For '(' variableDeclarationList In singleExpression ')' statement
+    : For '(' variableDeclarationList In singleExpression ')' '{' statement+ '}'
     ;
 
 varModifier
@@ -86,9 +81,12 @@ labelledStatement
     : identifier ':' statement
     ;
 
-
 functionDeclaration
-    : varModifier Function identifier '(' formalParameterList? ')' functionBody
+    : varModifier Function identifier '(' formalParameterList? ')' '{' functionBody '}'
+    ;
+
+functionCall
+    : identifier '(' formalParameterList? ')'
     ;
 
 formalParameterList
@@ -96,11 +94,11 @@ formalParameterList
     ;
 
 formalParameterArg
-    : varModifier assignable ('=' singleExpression)?
+    : varModifier? assignable ('=' singleExpression)?
     ;
 
 functionBody
-    : '{' sourceElements? '}'
+    : sourceElements?
     ;
 
 arrayLiteral
@@ -139,7 +137,8 @@ expressionSequence
     ;
 
 singleExpression
-    : anonymousFunction                                                     # AnonymousFunctionExpression
+    : functionCall                                                          # FunctionExpression
+    | anonymousFunction                                                     # AnonymousFunctionExpression
     | '(' varModifier ')' singleExpression                                  # TypeAssertionExpression
     | singleExpression '[' expressionSequence ']'                           # MemberIndexExpression
     | singleExpression '?'? '.' identifierName                              # MemberDotExpression
@@ -179,8 +178,8 @@ objectLiteral
 
 anonymousFunction
     : functionDeclaration                                                       # FunctionDecl
-    | varModifier Function '(' formalParameterList? ')' functionBody                # anonymousFunctionDecl
-    |  varModifier arrowFunctionParameters '=>' arrowFunctionBody                            # ArrowFunction
+    | varModifier Function '(' formalParameterList? ')' '{' functionBody '}'            # anonymousFunctionDecl
+    | varModifier arrowFunctionParameters '=>' arrowFunctionBody                # ArrowFunction
     ;
 
 arrowFunctionParameters
@@ -190,7 +189,7 @@ arrowFunctionParameters
 
 arrowFunctionBody
     : singleExpression
-    | functionBody
+    | '{' functionBody '}'
     ;
 
 assignmentOperator

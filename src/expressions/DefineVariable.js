@@ -1,18 +1,17 @@
+import Compiler from "../../build/compiler";
+
 export default class DefineVariable {
   constructor(type, nameAndValue) {
-    this._type = type;
-    this._nameAndValue = nameAndValue;
+    this.type = type;
+    this.nameAndValue = nameAndValue;
   }
 
-  get type() {
-    return this._type;
-  }
+  toIR() {
+    this.llType = Compiler.getType(this.type, this.nameAndValue.value);
+    this.llPtr = Compiler.builder.createAlloca(this.llType)
+    this.value = Compiler.getValue(this.type, this.nameAndValue.value)
+    this.store = Compiler.builder.createStore(this.value, this.llPtr)
 
-  get nameAndValue() {
-    return this._nameAndValue;
-  }
-
-  toString() {
-    return this._type + ' ' + this._nameAndValue.toString();
+    return this;
   }
 }

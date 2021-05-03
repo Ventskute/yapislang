@@ -1,18 +1,10 @@
 export default class NameAndValue {
     constructor(name, value) {
-        this._name = name;
-        this._value = value;
+        this.name = name;
+        this.value = value;
     }
 
-    get name() {
-        return this._name;
-    }
-
-    get value() {
-        return this._value;
-    }
-
-    toString() {
+    toIR() {
         return this._name + " = " + this._value;
     }
 }

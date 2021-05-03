@@ -7,7 +7,7 @@ string[] func parseHTML(string html) {
 
   string temp = ""
 
-  for (symbol in arr) {
+  for (string symbol in arr) {
     if (symbol == "<") {          // tag found
       int slash = arr.find("/")    // search for closing tag
 

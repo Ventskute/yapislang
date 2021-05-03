@@ -30,12 +30,6 @@ export default class YapislangParserVisitor extends antlr4.tree.ParseTreeVisitor
 	}
 
 
-	// Visit a parse tree produced by YapislangParser#block.
-	visitBlock(ctx) {
-	  return this.visitChildren(ctx);
-	}
-
-
 	// Visit a parse tree produced by YapislangParser#statementList.
 	visitStatementList(ctx) {
 	  return this.visitChildren(ctx);
@@ -110,6 +104,12 @@ export default class YapislangParserVisitor extends antlr4.tree.ParseTreeVisitor
 
 	// Visit a parse tree produced by YapislangParser#functionDeclaration.
 	visitFunctionDeclaration(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by YapislangParser#functionCall.
+	visitFunctionCall(ctx) {
 	  return this.visitChildren(ctx);
 	}
 
@@ -242,6 +242,12 @@ export default class YapislangParserVisitor extends antlr4.tree.ParseTreeVisitor
 
 	// Visit a parse tree produced by YapislangParser#MemberDotFunctionCall.
 	visitMemberDotFunctionCall(ctx) {
+	  return this.visitChildren(ctx);
+	}
+
+
+	// Visit a parse tree produced by YapislangParser#FunctionExpression.
+	visitFunctionExpression(ctx) {
 	  return this.visitChildren(ctx);
 	}
 

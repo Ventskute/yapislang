@@ -7,6 +7,6 @@ export default class Parameter {
 
     toString() {
         if (this.value) return this.value.toString();
-        else return this.type + " " + this.name;
+        else return '';
     }
 }

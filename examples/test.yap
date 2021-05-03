@@ -1,3 +1,12 @@
-console.log("test string")
+string func abc() {
+    string res = "some cool text string"
+    print(res)
+    return res
+}
 
-string a = "fsdjfs"
+int a = 2
+string b = "test string"
+abc()
+
+print(b)
+//print(c)
